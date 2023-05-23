@@ -17,7 +17,7 @@ void main() {
       builder: (context) => Sizer(
         builder: (context, orientation, deviceType) => GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          initialRoute: '/home',
+          // initialRoute: '/home',
           getPages: [
             GetPage(name: '/', page: () => SplashScreen(),),
             GetPage(name: '/home', page: () => HomeScreen(),),

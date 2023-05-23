@@ -42,6 +42,9 @@ class TextFieldController extends GetxController {
   RxString updated = "Jenil".obs;
   Rx<TimeOfDay> time = TimeOfDay.now().obs;
   RxString timeSt = "".obs;
+  RxString dropDownValueForayType = "".obs;
+  RxString dropDownValueFoDate = "".obs;
+  RxInt dropDownValueForIncomeExpense = 1.obs;
 
   AddDataInlistOfEntry() {
     print("Done");

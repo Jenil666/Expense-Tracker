@@ -54,6 +54,7 @@ class _TransctionScreenState extends State<TransctionScreen> {
                           alignment: Alignment.center,
                           child: Obx(
                             () => DropdownButton(
+
                               items: const [
                                 DropdownMenuItem(
                                   value: 0,
@@ -68,8 +69,7 @@ class _TransctionScreenState extends State<TransctionScreen> {
                                   child: Text("All"),
                                 ),
                               ],
-                              value: getxTextEditingController
-                                  .dropDownIncomeExpenseFilter.value,
+                              value: getxTextEditingController.dropDownIncomeExpenseFilter.value,
                               onChanged: (value) {
                                 print(getxTextEditingController.updated);
                                 getxTextEditingController
