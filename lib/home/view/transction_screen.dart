@@ -24,8 +24,8 @@ class _TransctionScreenState extends State<TransctionScreen> {
     getxTextEditingController.readData();
     getxTextEditingController.readCatData();
     getxTextEditingController.AddDataInlistOfEntry();
-    print("================================================");
     getxTextEditingController.GrandTotal();
+    print("================================================");
     // getxTextEditingController.MethodCallToGetValue();
   }
 
@@ -356,6 +356,7 @@ class _TransctionScreenState extends State<TransctionScreen> {
                                   getxTextEditingController.datas[index]));
                         },
                         child: Container(
+                          padding: EdgeInsets.all(15),
                           margin: const EdgeInsets.only(
                               left: 10, right: 10, bottom: 10),
                           height: 12.h,
@@ -366,82 +367,74 @@ class _TransctionScreenState extends State<TransctionScreen> {
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SizedBox(
-                                width: 3.w,
-                              ),
-                              Row(
+                              // SizedBox(width: 1.w,),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            "${getxTextEditingController.datas[index][DataBasedHelper.c_category]}",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.white),
-                                          ),
-                                          SizedBox(
-                                            width: 1.9.w,
-                                          ),
-                                          Text(
-                                            "(${getxTextEditingController.datas[index][DataBasedHelper.c_date]})",
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                color: Colors.white60),
-                                          ),
-                                        ],
-                                      ),
-                                      // SizedBox(width: 1.w,),
-                                      Container(
-                                        width: 20.w,
-                                        height: 3.h,
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                            "${getxTextEditingController.datas[index][DataBasedHelper.c_payType]}"),
-                                        decoration: BoxDecoration(
-                                            color: Colors.white54,
-                                            borderRadius:
-                                                BorderRadius.circular(2.h)),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    width: 40.w,
-                                  ),
                                   Row(
                                     mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      getxTextEditingController.datas[index][
-                                                  DataBasedHelper
-                                                      .c_statusCode] ==
-                                              0
-                                          ? Icon(
-                                              Icons.arrow_upward_rounded,
-                                              color: Colors.green,
-                                            )
-                                          : Icon(
-                                              Icons.arrow_downward_outlined,
-                                              color: Colors.red.shade300,
-                                            ),
                                       Text(
-                                        "${getxTextEditingController.datas[index][DataBasedHelper.c_amount]}",
+                                        "${getxTextEditingController.datas[index][DataBasedHelper.c_category]}",
                                         style: TextStyle(
-                                            color: getxTextEditingController
-                                                            .datas[index][
-                                                        DataBasedHelper
-                                                            .c_statusCode] ==
-                                                    0
-                                                ? Colors.green
-                                                : Colors.red),
+                                            fontSize: 18,
+                                            color: Colors.white),
+                                      ),
+                                      SizedBox(
+                                        width: 1.9.w,
+                                      ),
+                                      Text(
+                                        "(${getxTextEditingController.datas[index][DataBasedHelper.c_date]})",
+                                        style: TextStyle(
+                                            fontSize: 13,
+                                            color: Colors.white60),
                                       ),
                                     ],
+                                  ),
+                                  // SizedBox(width: 1.w,),
+                                  Container(
+                                    width: 20.w,
+                                    height: 3.h,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                        "${getxTextEditingController.datas[index][DataBasedHelper.c_payType]}"),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white54,
+                                        borderRadius:
+                                            BorderRadius.circular(2.h)),
+                                  ),
+                                ],
+                              ),
+                              // Expanded(child: SizedBox()),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  getxTextEditingController.datas[index][
+                                              DataBasedHelper
+                                                  .c_statusCode] ==
+                                          0
+                                      ? Icon(
+                                          Icons.arrow_upward_rounded,
+                                          color: Colors.green,
+                                        )
+                                      : Icon(
+                                          Icons.arrow_downward_outlined,
+                                          color: Colors.red.shade300,
+                                        ),
+                                  Text(
+                                    "${getxTextEditingController.datas[index][DataBasedHelper.c_amount]}",
+                                    style: TextStyle(
+                                        color: getxTextEditingController
+                                                        .datas[index][
+                                                    DataBasedHelper
+                                                        .c_statusCode] ==
+                                                0
+                                            ? Colors.green
+                                            : Colors.red),
                                   ),
                                 ],
                               ),

@@ -406,10 +406,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         } catch (e, s) {
                           Get.snackbar("Khata Book App", "Enter Proper Amount");
                         }
-                        // &&
-                        print(
-                            '======================================================');
-                        print(getxTextEditingController.payType);
                         if ((getxTextEditingController.incomeExpense == 0 ||
                                 getxTextEditingController.incomeExpense == 1) &&
                             (amountToCheck > 0) &&
@@ -442,9 +438,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           getxTextEditingController.txtStatusCode.clear();
                           getxTextEditingController.txtNote.clear();
                           getxTextEditingController.txtAmount.clear();
+                          getxTextEditingController.GrandTotal();
                         } else {
-                          Get.snackbar(
-                              "Khata Book App", "Enter Required Paramaters");
+                          Get.snackbar("Khata Book App", "Enter Required Paramaters");
                         }
                       },
                       style: ElevatedButton.styleFrom(backgroundColor: Color(0xff434273)),
