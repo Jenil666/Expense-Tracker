@@ -31,12 +31,13 @@ class _TransctionScreenState extends State<TransctionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("================================================");
-    getxTextEditingController.GrandTotal();
     getxTextEditingController.readData();
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.black,
         appBar: AppBar(
+          backgroundColor: Colors.black,
+          elevation: 0,
           title: Text("Khata Book"),
           actions: [
             IconButton(
@@ -47,14 +48,15 @@ class _TransctionScreenState extends State<TransctionScreen> {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(height: 3.h,),
+                        SizedBox(
+                          height: 3.h,
+                        ),
                         Container(
                           height: 10.h,
                           width: 80.w,
                           alignment: Alignment.center,
                           child: Obx(
                             () => DropdownButton(
-
                               items: const [
                                 DropdownMenuItem(
                                   value: 0,
@@ -69,7 +71,8 @@ class _TransctionScreenState extends State<TransctionScreen> {
                                   child: Text("All"),
                                 ),
                               ],
-                              value: getxTextEditingController.dropDownIncomeExpenseFilter.value,
+                              value: getxTextEditingController
+                                  .dropDownIncomeExpenseFilter.value,
                               onChanged: (value) {
                                 print(getxTextEditingController.updated);
                                 getxTextEditingController
@@ -88,7 +91,9 @@ class _TransctionScreenState extends State<TransctionScreen> {
                           decoration: BoxDecoration(
                               border: Border.all(color: Colors.black45)),
                         ),
-                        SizedBox(height: 3.h,),
+                        SizedBox(
+                          height: 3.h,
+                        ),
                         Container(
                           height: 10.h,
                           width: 80.w,
@@ -128,7 +133,9 @@ class _TransctionScreenState extends State<TransctionScreen> {
                           decoration: BoxDecoration(
                               border: Border.all(color: Colors.black45)),
                         ),
-                        SizedBox(height: 3.h,),
+                        SizedBox(
+                          height: 3.h,
+                        ),
                         IconButton(
                           onPressed: () async {
                             DateTime toDate = (await showDatePicker(
@@ -168,163 +175,230 @@ class _TransctionScreenState extends State<TransctionScreen> {
             ),
           ],
         ),
-        body: Obx(
-          () =>  Column(
-            children: [
-              SizedBox(
-                height: 1.h,
-              ),
-              Container(
-                height: 20.h,
-                width: 96.w,
-                alignment: Alignment.center,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Total"),
-                    Obx(() => Text("${getxTextEditingController.grandTotal.value}",
-                          style: TextStyle(fontSize: 20),
-                        )),
-                  ],
-                ),
-                decoration:
-                    BoxDecoration(border: Border.all(color: Colors.black45)),
-              ),
-              Container(
-                margin: EdgeInsets.all(1.h),
-                height: 12.h,
-                width: 100.w,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 4.h,
-                          width: 20.w,
-                          alignment: Alignment.center,
-                          child: Text("Income"),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: Colors.black38)),
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.arrow_upward_rounded,
-                              color: Colors.green,
-                            ),
-                            Text(
-                              "${getxTextEditingController.sumOfIncome}",
-                              style: TextStyle(color: Colors.green),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 4.h,
-                          width: 20.w,
-                          alignment: Alignment.center,
-                          child: Text("Income"),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: Colors.black38)),
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.arrow_downward_outlined,
-                              color: Colors.redAccent,
-                            ),
-                            Text(
-                              "${getxTextEditingController.sumOfExpense}",
-                              style: TextStyle(color: Colors.redAccent),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(5),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black38,
-                        blurRadius: 3,
-                        offset: Offset(0, 2),
+        body: Column(
+          children: [
+            SizedBox(
+              height: 1.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 7.5.h,
+                  width: 20.h,
+                  decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(10.h)),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 1.5.w,
                       ),
-                    ]),
-              ),
-              Text(
-                "Details of Transctions",
-                style: TextStyle(fontSize: 20),
-              ),
-              Obx(
-                () => Expanded(
-                  child: Container(
-                    height: 50.h,
-                    // color: Colors.blue.shade50,
-                    child: ListView.builder(
-                      itemCount: getxTextEditingController.datas.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: const EdgeInsets.all(10),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 2.w,
+                          ),
+                          CircleAvatar(
+                            radius: 3.h,
+                            backgroundColor: Colors.white54,
+                            child: Icon(
+                              Icons.arrow_downward_outlined,
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 3.w,
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                "Spending",
+                                style: TextStyle(
+                                    color: Colors.white54, fontSize: 12),
+                              ),
+                              Obx(() => Text(
+                                    "${getxTextEditingController.sumOfExpense}",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 18),
+                                  )),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 12.w,
+                ),
+                Container(
+                  height: 7.5.h,
+                  width: 20.h,
+                  decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(10.h)),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 1.5.w,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 2.w,
+                          ),
+                          CircleAvatar(
+                            radius: 3.h,
+                            backgroundColor: Colors.white54,
+                            child: Icon(
+                              Icons.arrow_upward_rounded,
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 3.w,
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                "Income",
+                                style: TextStyle(
+                                    color: Colors.white54, fontSize: 12),
+                              ),
+                              Obx(() => Text(
+                                    "${getxTextEditingController.sumOfIncome}",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 18),
+                                  )),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 3.h,
+            ),
+            Container(
+              height: 4.h,
+              width: 32.w,
+              alignment: Alignment.center,
+              child: Obx(() => Text(
+                    "Balance: ${getxTextEditingController.grandTotal.value}",
+                    style: TextStyle(color: Colors.white),
+                  )),
+              decoration: BoxDecoration(
+                  color: Colors.white54,
+                  borderRadius: BorderRadius.circular(20)),
+            ),
+            SizedBox(
+              height: 3.h,
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: 2.w,
+                ),
+                Text(
+                  "Details of Transctions",
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
+            Obx(
+              () => Expanded(
+                child: Container(
+                  height: 50.h,
+                  child: ListView.builder(
+                    itemCount: getxTextEditingController.datas.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          Get.defaultDialog(
+                              content: UpdateAlertDialog(
+                                  getxTextEditingController.datas[index]));
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                              left: 10, right: 10, bottom: 10),
                           height: 12.h,
                           width: 100.w,
                           decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black38,
-                                    blurRadius: 0.5,
-                                    spreadRadius: 0.5)
-                              ]),
+                            // color: Colors.white38,
+                            border: Border.all(color: Colors.white54),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                           child: Row(
                             children: [
                               SizedBox(
                                 width: 3.w,
                               ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              Row(
                                 children: [
-                                  Row(
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        "${getxTextEditingController.datas[index][DataBasedHelper.c_category]}",
-                                        style: TextStyle(fontSize: 18),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            "${getxTextEditingController.datas[index][DataBasedHelper.c_category]}",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.white),
+                                          ),
+                                          SizedBox(
+                                            width: 1.9.w,
+                                          ),
+                                          Text(
+                                            "(${getxTextEditingController.datas[index][DataBasedHelper.c_date]})",
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                color: Colors.white60),
+                                          ),
+                                        ],
                                       ),
-                                      SizedBox(
-                                        width: 2.w,
-                                      ),
-                                      Text(
-                                        "(${getxTextEditingController.datas[index][DataBasedHelper.c_date]})",
-                                        style: TextStyle(
-                                            fontSize: 13, color: Colors.black38),
+                                      // SizedBox(width: 1.w,),
+                                      Container(
+                                        width: 20.w,
+                                        height: 3.h,
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                            "${getxTextEditingController.datas[index][DataBasedHelper.c_payType]}"),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white54,
+                                            borderRadius:
+                                                BorderRadius.circular(2.h)),
                                       ),
                                     ],
                                   ),
+                                  SizedBox(
+                                    width: 40.w,
+                                  ),
                                   Row(
+                                    mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       getxTextEditingController.datas[index][
-                                                  DataBasedHelper.c_statusCode] ==
+                                                  DataBasedHelper
+                                                      .c_statusCode] ==
                                               0
                                           ? Icon(
                                               Icons.arrow_upward_rounded,
                                               color: Colors.green,
                                             )
                                           : Icon(
-                                              Icons.arrow_upward_rounded,
-                                              color: Colors.redAccent,
+                                              Icons.arrow_downward_outlined,
+                                              color: Colors.red.shade300,
                                             ),
                                       Text(
                                         "${getxTextEditingController.datas[index][DataBasedHelper.c_amount]}",
@@ -341,55 +415,32 @@ class _TransctionScreenState extends State<TransctionScreen> {
                                   ),
                                 ],
                               ),
-                              Spacer(),
-                              IconButton(
-                                onPressed: () {
-                                  Get.defaultDialog(
-                                      content: UpdateAlertDialog(
-                                          getxTextEditingController.datas[index]));
-                                },
-                                icon: const Icon(
-                                  Icons.edit,
-                                  color: Colors.green,
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  getxTextEditingController.GrandTotal();
-                                  getxTextEditingController.DeleteData(
-                                      id: getxTextEditingController.datas[index]
-                                          [DataBasedHelper.c_id]);
-                                },
-                                icon: const Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 3.w,
-                              ),
                             ],
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
         floatingActionButton: Align(
           alignment: Alignment.bottomCenter,
-          child: FloatingActionButton(
-            onPressed: () {
-              // getxTextEditingController.TotalExpense();
-              // getxTextEditingController.TotalIncome();
-              // getxTextEditingController.GrandTotal()
-              print("jenilcghcghcchgcycghfthrthfbn vnnnnnnnnnnnnnn");
-              Get.toNamed("/home");
-            },
-            child: Icon(Icons.add),
+          child: Container(decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: Colors.white)
+          ),
+            child: FloatingActionButton(
+              backgroundColor: Colors.transparent,
+              // focusColor: Colors.white,
+              onPressed: () {
+                // getxTextEditingController.GrandTotal();
+                Get.toNamed("/home");
+              },
+              child: Icon(Icons.add,color: Colors.white,),
+            ),
           ),
         ),
       ),
@@ -428,3 +479,33 @@ class _TransctionScreenState extends State<TransctionScreen> {
 //     ],
 //   ),
 // ),
+
+/*
+Spacer(),
+                              IconButton(
+                                onPressed: () {
+                                  Get.defaultDialog(
+                                      content: UpdateAlertDialog(
+                                          getxTextEditingController.datas[index]));
+                                },
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Colors.green,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  getxTextEditingController.DeleteData(
+                                      id: getxTextEditingController.datas[index]
+                                          [DataBasedHelper.c_id]);
+                                  getxTextEditingController.GrandTotal();
+                                },
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 2.w,
+                              ),
+ */

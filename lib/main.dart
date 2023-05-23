@@ -12,9 +12,10 @@ import 'home/view/home_screen.dart';
 
 void main() {
   runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => Sizer(
+    // DevicePreview(
+    //   enabled: !kReleaseMode,
+    //   builder: (context) =>
+          Sizer(
         builder: (context, orientation, deviceType) => GetMaterialApp(
           debugShowCheckedModeBanner: false,
           // initialRoute: '/home',
@@ -26,6 +27,6 @@ void main() {
           ],
         ),
       ),
-    ),
+    // ),
   );
 }

@@ -24,8 +24,10 @@ class TextFieldController extends GetxController {
   TextEditingController updatedtxtAmount = TextEditingController(text: '200');
   TextEditingController updatedtxtTime = TextEditingController(text: '12:00');
   TextEditingController updatedtxtDate = TextEditingController(text: '12:00');
-  TextEditingController updatedtxtCategary = TextEditingController(text: 'food');
-  TextEditingController updatedtxtPayType = TextEditingController(text: 'online');
+  TextEditingController updatedtxtCategary = TextEditingController(
+      text: 'food');
+  TextEditingController updatedtxtPayType = TextEditingController(
+      text: 'online');
   TextEditingController updatedtxtStatusCode = TextEditingController(text: '1');
   TextEditingController updatedtxtNote = TextEditingController();
   TextEditingController txtuserEntry = TextEditingController();
@@ -40,7 +42,9 @@ class TextFieldController extends GetxController {
   RxInt dropDownIncomeExpenseFilter = 0.obs;
   RxString dropDownPayType = "online".obs;
   RxString updated = "Jenil".obs;
-  Rx<TimeOfDay> time = TimeOfDay.now().obs;
+  Rx<TimeOfDay> time = TimeOfDay
+      .now()
+      .obs;
   RxString timeSt = "".obs;
   RxString dropDownValueForayType = "".obs;
   RxString dropDownValueFoDate = "".obs;
@@ -51,7 +55,7 @@ class TextFieldController extends GetxController {
     print(category);
     Timer(
       Duration(seconds: 2),
-      () {
+          () {
         listOfEntry.clear();
         for (int i = 0; i < category.length; i++) {
           listOfEntry.add(DropdownMenuEntry(
@@ -65,16 +69,16 @@ class TextFieldController extends GetxController {
     );
   }
 
-  Filte({required statusCode,required payType,required toDate}) async {
+  Filte({required statusCode, required payType, required toDate}) async {
     print("+++++++++++++++++    Controller");
     print("Inc:- $statusCode");
     print("Onl:- $payType");
     print("Dat:- $toDate");
-    datas.value = await DataBasedHelper.dbHelper.Filter(statusCode: statusCode, payType: payType, fromDate: toDate);
-    if(toDate == "")
-      {
-        print("Done");
-      }
+    datas.value = await DataBasedHelper.dbHelper.Filter(
+        statusCode: statusCode, payType: payType, fromDate: toDate);
+    if (toDate == "") {
+      print("Done");
+    }
   }
 
   // DateWiseFilter({required todate, fromdate}) async {
@@ -82,57 +86,59 @@ class TextFieldController extends GetxController {
   // }
 
   double sumForFilters = 0;
-  allEntryTotal()
-  {
+
+  allEntryTotal() {
     readDataForTotal();
     sumForFilters = 0;
-    for(int i =0; i< datasForTotal.length; i++)
-      {
-        String value = datasForTotal[i][DataBasedHelper.c_amount];
-        int amount = int.parse(value);
-        sumForFilters = sumForFilters + amount;
-      }
+    for (int i = 0; i < datasForTotal.length; i++) {
+      String value = datasForTotal[i][DataBasedHelper.c_amount];
+      int amount = int.parse(value);
+      sumForFilters = sumForFilters + amount;
+    }
     print("end");
     print(sumForFilters);
   }
 
-  RxDouble sumOfIncome=0.0.obs;
-  AllIncomeTotal()
-  {
+  RxDouble sumOfIncome = 0.0.obs;
+
+  AllIncomeTotal() {
     TotalIncome();
     sumOfIncome.value = 0;
-    for(int i = 0; i < totalIncome.length; i++)
-      {
-        String value = totalIncome[i][DataBasedHelper.c_amount];
-        int amount = int.parse(value);
-        sumOfIncome.value = sumOfIncome.value + amount;
-      }
+    Future.delayed(
+        Duration(seconds: 2), () { for(int i = 0; i < totalIncome.length; i++)
+    {
+      String value = totalIncome[i][DataBasedHelper.c_amount];
+      int amount = int.parse(value);
+      sumOfIncome.value = sumOfIncome.value + amount;
+    } },);
+
     // print("SumOfIncome");
     // print(sumOfIncome);
   }
 
-  RxDouble sumOfExpense=0.0.obs;
-  AllExpenseTotal()
-  {
+  RxDouble sumOfExpense = 0.0.obs;
+
+  AllExpenseTotal() {
     TotalExpense();
     sumOfExpense.value = 0;
-    for(int i = 0; i < totalExpense.length; i++)
-    {
-      String value = totalExpense[i][DataBasedHelper.c_amount];
-      int amount = int.parse(value);
-      sumOfExpense.value = sumOfExpense.value + amount;
-    }
+    Future.delayed(Duration(seconds: 2),() {
+      for (int i = 0; i < totalExpense.length; i++) {
+        String value = totalExpense[i][DataBasedHelper.c_amount];
+        int amount = int.parse(value);
+        sumOfExpense.value = sumOfExpense.value + amount;
+      }
+    },);
     // print("sumOfExpense");
     // print(sumOfExpense);
   }
 
-  RxDouble grandTotal=0.0.obs;
-  GrandTotal()
-  {
+  RxDouble grandTotal = 0.0.obs;
+
+  GrandTotal() {
     grandTotal.value = 0;
     AllIncomeTotal();
     AllExpenseTotal();
-    // Timer(Duration(seconds: 0), () {
+    Future.delayed(Duration(seconds: 2), () {
       grandTotal.value = sumOfIncome.value - sumOfExpense.value;
       print("Income");
       print(sumOfIncome);
@@ -140,23 +146,21 @@ class TextFieldController extends GetxController {
       print(sumOfExpense);
       print("grandT");
       print(grandTotal);
-    // });
-
+    });
   }
 
-  TotalIncome()
-  async {
+  TotalIncome() async {
     totalIncome.value = await DataBasedHelper.dbHelper.FilterForIncone();
   }
 
-  TotalExpense()
-  async {
+  TotalExpense() async {
     totalExpense.value = await DataBasedHelper.dbHelper.FilterForExpense();
   }
 
   Future<void> readDataForTotal() async {
     datasForTotal.value = await DataBasedHelper.dbHelper.read();
   }
+
   // ToDo All Table
 
   Future<void> readData() async {
@@ -168,16 +172,17 @@ class TextFieldController extends GetxController {
     readData();
   }
 
-  Update({required statusCode, required notes, required time, required date, required category, required amount, required id,required payTypes,}) {
+  Update(
+      {required statusCode, required notes, required time, required date, required category, required amount, required id, required payTypes,}) {
     DataBasedHelper.dbHelper.Update(
-        statusCode: statusCode,
-        notes: notes,
-        time: time,
-        date: date,
-        category: category,
-        amount: amount,
-        id: id,
-        payType: payTypes,
+      statusCode: statusCode,
+      notes: notes,
+      time: time,
+      date: date,
+      category: category,
+      amount: amount,
+      id: id,
+      payType: payTypes,
     );
     readData();
   }
@@ -195,7 +200,7 @@ class TextFieldController extends GetxController {
     readCatData();
   }
 
-  UpdateCat({required id ,required category}) {
+  UpdateCat({required id, required category}) {
     print("==============++++++++++++Controller");
     print("id = $id");
     print(category);
