@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../controller/add_screen_controller.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -16,14 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   TextFieldController getxTextEditingController =
       Get.put(TextFieldController());
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // getxTextEditingController.readCatData();
-    // getxTextEditingController.AddDataInlistOfEntry();
-    // getxTextEditingController.GrandTotal();
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +28,11 @@ class _SplashScreenState extends State<SplashScreen> {
         Get.offNamed('/tra');
       },
     );
-    return const SafeArea(
+    return  SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.black,
         body: Center(
-          child: Text("Jenil"),
+          child: Text("Jenil",style: GoogleFonts.babylonica(fontSize: 100,color: Color(0xff434273))),
         ),
       ),
     );

@@ -40,6 +40,7 @@ dependencies:
   device_preview: ^1.1.0
   sqflite: ^2.2.8+4
   path_provider: ^2.0.15
+  google_fonts: ^4.0.4
 
 dev_dependencies:
   flutter_test:

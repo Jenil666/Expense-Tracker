@@ -16,16 +16,16 @@ class _HomeScreenState extends State<HomeScreen> {
   TextFieldController getxTextEditingController =
       Get.put(TextFieldController());
 
-@override
+  @override
   void initState() {
     // TODO: implement initState
-    getxTextEditingController.date.value = "${getxTextEditingController.now.day}-${getxTextEditingController.now.month}-${getxTextEditingController.now.year}";
+    getxTextEditingController.date.value =
+        "${getxTextEditingController.now.day}-${getxTextEditingController.now.month}-${getxTextEditingController.now.year}";
     getxTextEditingController.readCatData();
     getxTextEditingController.AddDataInlistOfEntry();
-    getxTextEditingController.timeSt.value = "${getxTextEditingController.time.value.hour}:${getxTextEditingController.time.value.minute}";
+    getxTextEditingController.timeSt.value =
+        "${getxTextEditingController.time.value.hour}:${getxTextEditingController.time.value.minute}";
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -34,47 +34,71 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.black45,
         appBar: AppBar(
           backgroundColor: Color(0xff434273),
-          leading: IconButton(onPressed: () {
-            getxTextEditingController.readData();
-            Get.back();
-          }, icon: Icon(Icons.arrow_back)),
+          leading: IconButton(
+              onPressed: () {
+                getxTextEditingController.readData();
+                Get.back();
+              },
+              icon: Icon(Icons.arrow_back)),
           title: Text("Add transction"),
           actions: [
-            ElevatedButton(
-                onPressed: () {
-                  Get.defaultDialog(
-                    content: Container(
-                      height: 200,
-                      width: 60.w,
-                      child: ListView(
-                        children: [
-                          TextField(
-                            controller: getxTextEditingController.txtuserEntry,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black45),
-                              ),
-                            ),
-                          ),
-                          ElevatedButton(
-                              onPressed: () {
-                                DataBasedHelper.dbHelper.insertDateInCategoryTable(category: getxTextEditingController.txtuserEntry.text);
-                                getxTextEditingController.readCatData();
-                                getxTextEditingController.AddDataInlistOfEntry();
-                                getxTextEditingController.txtuserEntry.clear();
-                                // setState(() {});
-                                Get.back();
-                              },
-                              child: Text("Add")),
-                          ElevatedButton(onPressed: () {
-                            Get.toNamed("/categoryCurd");
-                          }, child: Text("Edit CateGory"))
-                        ],
+            IconButton(onPressed: () {
+              Get.defaultDialog(
+                backgroundColor: Colors.black,
+                title: "Category",
+                titleStyle: TextStyle(color: Colors.white),
+                content: Container(
+                  height: 200,
+                  width: 60.w,
+                  child: ListView(
+                    children: [
+                      TextField(
+                        controller: getxTextEditingController.txtuserEntry,
+                        style: TextStyle(color: Colors.white),
+                        cursorColor: Colors.white,
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                          // disabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                          // label: Text(
+                          //   "",
+                          //   style: TextStyle(color: Colors.white),
+                          // ),
+                        ),
                       ),
-                    ),
-                  );
-                },style: ElevatedButton.styleFrom(backgroundColor: Color(0xff434273)),
-                child: Text("Add"))
+                      SizedBox(height: 2.h,),
+                      ElevatedButton(
+                          onPressed: () {
+                            if(getxTextEditingController.txtuserEntry.text !="") {
+                              // Get.snackbar("Khata Book", "Categiory add");
+                              DataBasedHelper.dbHelper
+                                  .insertDateInCategoryTable(
+                                  category: getxTextEditingController
+                                      .txtuserEntry.text);
+                              getxTextEditingController.readCatData();
+                              getxTextEditingController
+                                  .AddDataInlistOfEntry();
+                              getxTextEditingController.txtuserEntry
+                                  .clear();
+                            }
+                            Get.back();
+                          },
+                          style: ElevatedButton.styleFrom(backgroundColor: Color(0xff434273)),
+                          child: Text("Add")),
+                      ElevatedButton(
+                          onPressed: () {
+                            Get.back();
+                            Get.toNamed("/categoryCurd");
+                          },
+                          style: ElevatedButton.styleFrom(backgroundColor: Color(0xff434273)),
+                          child: Text("Edit CateGory"))
+                    ],
+                  ),
+                ),
+              );
+            }, icon: Icon(Icons.add))
           ],
         ),
         body: Padding(
@@ -83,145 +107,330 @@ class _HomeScreenState extends State<HomeScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: 20.5.w,
-                        height: 8.w,
-                        color: Colors.blue,
-                        alignment: Alignment.center,
-                        child: Text("Expense",style: TextStyle(fontSize: 17),),
-                      ),
-                      Container(
-                        width: 20.5.w,
-                        height: 8.w,
-                        color: Colors.amber,
-                        alignment: Alignment.center,
-                        child: Text("Income",style: TextStyle(fontSize: 17),),
-                      ),
-                    ],
+                  SizedBox(
+                    height: 1.h,
                   ),
-                  txtField(txtController: getxTextEditingController.txtAmount, txtHintText: 'Amount'),
-                  Obx(
-                    () =>  Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                  Container(
+                    height: 5.h,
+                    width: 45.w,
+                    decoration: BoxDecoration(
+                        color: Colors.white24,
+                        borderRadius: BorderRadius.circular(6)),
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        DropdownMenu(
-                          onSelected: (value)  {
-                            getxTextEditingController.txtCategary.text = value!;
+                        InkWell(
+                          onTap: () {
+                            getxTextEditingController.expenswTextColor.value =
+                                Colors.black;
+                            getxTextEditingController.incomeTextColor.value =
+                                Colors.white;
+                            getxTextEditingController.incomeContainerColor
+                                .value = Colors.transparent;
+                            getxTextEditingController
+                                .expenseContainerColor.value = Colors.white60;
+                            getxTextEditingController.incomeExpense = 1;
                           },
-                            enableSearch: false,
-                            enableFilter: false,
-                            // enabled: true,
-                            // enabled: false,
-                            label: getxTextEditingController.listOfEntry.isEmpty
-                                ? Text("Add Items")
-                                : Text("Seletc Items",style: TextStyle(fontSize: 12),),
-                            dropdownMenuEntries: getxTextEditingController.listOfEntry),
+                          child: Obx(
+                            () => Container(
+                              width: 20.5.w,
+                              height: 8.w,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: getxTextEditingController
+                                      .expenseContainerColor.value,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Text(
+                                "Expense",
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: getxTextEditingController
+                                        .expenswTextColor.value),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 1.5.w,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            getxTextEditingController.expenswTextColor.value =
+                                Colors.white;
+                            getxTextEditingController.incomeTextColor.value =
+                                Colors.black;
+                            getxTextEditingController
+                                .incomeContainerColor.value = Colors.white60;
+                            getxTextEditingController.expenseContainerColor
+                                .value = Colors.transparent;
+                            getxTextEditingController.incomeExpense = 0;
+                          },
+                          child: Obx(
+                            () => Container(
+                              width: 20.5.w,
+                              height: 8.w,
+                              decoration: BoxDecoration(
+                                  color: getxTextEditingController
+                                      .incomeContainerColor.value,
+                                  borderRadius: BorderRadius.circular(5)),
+                              alignment: Alignment.center,
+                              child: Text(
+                                "Income",
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: getxTextEditingController
+                                        .incomeTextColor.value),
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 0.8.h,),
+                  Divider(
+                    color: Colors.white24,
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
                   Container(
                     padding: EdgeInsets.all(10),
                     height: 8.h,
                     width: 100.w,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black45),
-                      borderRadius: BorderRadius.circular(5)
+                      border: Border.all(color: Colors.white),
+                      // borderRadius: BorderRadius.circular(5)
                     ),
                     child: Row(
                       children: [
-                        Obx(() =>  Text("${getxTextEditingController.date}")),
+                        Obx(() => Text(
+                              "${getxTextEditingController.date}",
+                              style: TextStyle(color: Colors.white),
+                            )),
                         Spacer(),
-                        IconButton(onPressed: () async {
-                          DateTime? date = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(2001,1,1), lastDate: DateTime(2050,1,1));
-                          getxTextEditingController.date.value = "${date?.day}-${date?.month}-${date?.year}";
-                          print(getxTextEditingController.date);
-                          if(getxTextEditingController.date.value == "null-null-null")
-                            {
-                              getxTextEditingController.date.value = "${getxTextEditingController.now.day}-${getxTextEditingController.now.month}-${getxTextEditingController.now.year}";
+                        IconButton(
+                          onPressed: () async {
+                            DateTime? date = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2001, 1, 1),
+                              lastDate: DateTime(2050, 1, 1),
+                              builder: (context, child) {
+                                return Theme(
+                                    data: Theme.of(context).copyWith(
+                                        colorScheme: ColorScheme.light(
+                                      primary: Color(0xff535272),
+                                    )),
+                                    child: child!);
+                              },
+                            );
+                            getxTextEditingController.date.value =
+                                "${date?.day}-${date?.month}-${date?.year}";
+                            print(getxTextEditingController.date);
+                            if (getxTextEditingController.date.value ==
+                                "null-null-null") {
+                              getxTextEditingController.date.value =
+                                  "${getxTextEditingController.now.day}-${getxTextEditingController.now.month}-${getxTextEditingController.now.year}";
                             }
-                          // Text("${getxTextEditingController.date}");
-                        }, icon: Icon(Icons.calendar_month_outlined),),
+                            // Text("${getxTextEditingController.date}");
+                          },
+                          icon: Icon(
+                            Icons.calendar_month_outlined,
+                            color: Colors.white,
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 0.8.h,),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    height: 8.h,
-                    width: 100.w,
-                    child: Row(
-                      children: [
-                        Obx(() =>  Text("${getxTextEditingController.timeSt}")),
-                        Spacer(),
-                        IconButton(onPressed: () async {
-                          TimeOfDay? time = await showTimePicker(context: context, initialTime: TimeOfDay.now(),);
-                          getxTextEditingController.timeSt.value = "${time?.hour}:${time?.minute}";
-                          print("${getxTextEditingController.timeSt}");
-                          if(getxTextEditingController.timeSt.value == "null:null") {
-                            getxTextEditingController.timeSt.value = "${getxTextEditingController.time.value.hour}:${getxTextEditingController.time.value.minute}";
-                          }
-                          // Text("${getxTextEditingController.date}");
-                        }, icon: Icon(Icons.timelapse),),
-                      ],
+                  SizedBox(height: 2.h,),
+                  TextField(
+                    style: TextStyle(color: Colors.white),
+                    cursorColor: Colors.white,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)),
+                      // disabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)),
+                      label: Text(
+                        "Amount",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black45),
-                        borderRadius: BorderRadius.circular(5)
-                    ),
+                    controller: getxTextEditingController.txtAmount,
                   ),
-                  SizedBox(height: 0.8.h,),
+                  SizedBox(height: 2.h,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       DropdownMenu(
-                          menuStyle: MenuStyle(visualDensity: VisualDensity.adaptivePlatformDensity),
+                        textStyle: TextStyle(color: Colors.white),
+                        trailingIcon: Icon(Icons.arrow_drop_down_sharp,color: Colors.white,),
+                          inputDecorationTheme: InputDecorationTheme(
+                            // iconColor: Colors.white,
+                            suffixIconColor: Colors.white,
+                            prefixIconColor: Colors.white,
+                            enabledBorder:  OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            // disabledBorder: OutlineInputBorder(
+                            //   borderSide: BorderSide(color: Colors.white),
+                            // ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                          ),
+                          menuStyle: MenuStyle(
+                              visualDensity: VisualDensity.adaptivePlatformDensity),
                           onSelected: (value) {
-                            // print(value);
                             getxTextEditingController.payType = value!;
                           },
-                          hintText: "PayType",
+                          // hintText: "PayType",
+                          label: Text("Pay Type",style: TextStyle(color: Colors.white,fontSize: 13),),
                           dropdownMenuEntries: [
                             DropdownMenuEntry(value: "online", label: "Online"),
                             DropdownMenuEntry(value: "offline", label: "Offline"),
                           ]),
-                      DropdownMenu(
-                          menuStyle: MenuStyle(visualDensity: VisualDensity.adaptivePlatformDensity),
-                          onSelected: (value) {
-                            getxTextEditingController.incomeExpense = value!;
-                            // print(value);
-                          },
-                          hintText: "Income/Expense",
-                          dropdownMenuEntries: [
-                            DropdownMenuEntry(value: 0, label: "Income"),
-                            DropdownMenuEntry(value: 1, label: "Expense"),
-                          ]),
+                      Obx(
+                            () => Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            DropdownMenu(
+                                textStyle: TextStyle(color: Colors.white),
+                                trailingIcon: Icon(Icons.arrow_drop_down_sharp,color: Colors.white,),
+                                inputDecorationTheme: InputDecorationTheme(
+                                  // iconColor: Colors.white,
+                                  suffixIconColor: Colors.white,
+                                  prefixIconColor: Colors.white,
+                                  enabledBorder:  OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
+                                  // disabledBorder: OutlineInputBorder(
+                                  //   borderSide: BorderSide(color: Colors.white),
+                                  // ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
+                                ),
+                                onSelected: (value) {
+                                  getxTextEditingController.txtCategary.text =
+                                  value!;
+                                },
+                                enableFilter: false,
+                                label: getxTextEditingController.listOfEntry.isEmpty
+                                    ? Text("Add Items",style: TextStyle(color: Colors.white),)
+                                    : Text(
+                                  "Seletc Items",
+                                  style: TextStyle(fontSize: 12,color: Colors.white),
+                                ),
+                                dropdownMenuEntries:
+                                getxTextEditingController.listOfEntry),
+                          ],
+                        ),
+                      ),
+
                     ],
                   ),
-                  txtField(txtController: getxTextEditingController.txtNote, txtHintText: 'Notes'),
+                  SizedBox(height: 2.h,),
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    height: 8.h,
+                    width: 100.w,
+                    child: Row(
+                      children: [
+                        Obx(() => Text("${getxTextEditingController.timeSt}",style: TextStyle(color: Colors.white),)),
+                        Spacer(),
+                        IconButton(
+                          onPressed: () async {
+                            TimeOfDay? time = await showTimePicker(
+                              context: context,
+                              initialTime: TimeOfDay.now(),
+                              builder: (context, child) {
+                                return Theme(data: ThemeData(colorScheme: ColorScheme.light(
+                                  primary: Color(0xff535272),
+                                )), child: child!);
+                              },
+                            );
+                            getxTextEditingController.timeSt.value =
+                            "${time?.hour}:${time?.minute}";
+                            print("${getxTextEditingController.timeSt}");
+                            if (getxTextEditingController.timeSt.value ==
+                                "null:null") {
+                              getxTextEditingController.timeSt.value =
+                              "${getxTextEditingController.time.value.hour}:${getxTextEditingController.time.value.minute}";
+                            }
+                            // Text("${getxTextEditingController.date}");
+                          },
+                          icon: Icon(Icons.timelapse,color: Colors.white,),
+                        ),
+                      ],
+                    ),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white),
+                        borderRadius: BorderRadius.circular(5)),
+                  ),
+                  SizedBox(
+                    height: 0.8.h,
+                  ),
+                  SizedBox(
+                    height: 0.8.h,
+                  ),
+                  SizedBox(
+                    height: 0.8.h,
+                  ),
+                  TextField(
+                    controller: getxTextEditingController.txtNote,
+                    style: TextStyle(color: Colors.white),
+                    cursorColor: Colors.white,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)),
+                      // disabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)),
+                      label: Text(
+                        "Note",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 5.h,),
                   Center(
                     child: ElevatedButton(
                       onPressed: () {
                         int amountToCheck = 0;
                         try {
-                          amountToCheck = int.parse(getxTextEditingController.txtAmount.text);
+                          amountToCheck = int.parse(
+                              getxTextEditingController.txtAmount.text);
                         } catch (e, s) {
                           Get.snackbar("Khata Book App", "Enter Proper Amount");
                         }
                         // &&
-                        print('======================================================');
+                        print(
+                            '======================================================');
                         print(getxTextEditingController.payType);
-                        if((getxTextEditingController.incomeExpense == 0 || getxTextEditingController.incomeExpense == 1) && (amountToCheck > 0) && (getxTextEditingController.txtCategary.text != "") && (getxTextEditingController.payType == 'online' || getxTextEditingController.payType == 'offline')) {
+                        if ((getxTextEditingController.incomeExpense == 0 ||
+                                getxTextEditingController.incomeExpense == 1) &&
+                            (amountToCheck > 0) &&
+                            (getxTextEditingController.txtCategary.text !=
+                                "") &&
+                            (getxTextEditingController.payType == 'online' ||
+                                getxTextEditingController.payType ==
+                                    'offline')) {
                           int status = getxTextEditingController.incomeExpense;
-                          String note = getxTextEditingController.txtNote.text; //done
-                          String time = getxTextEditingController.timeSt.value; //done
-                          String date = getxTextEditingController.date.value; // done
-                          String category = getxTextEditingController.txtCategary.text; //done
-                          String amount = getxTextEditingController.txtAmount.text; // done
-                          String payType = getxTextEditingController.payType; //done
+                          String note =
+                              getxTextEditingController.txtNote.text; //done
+                          String time =
+                              getxTextEditingController.timeSt.value; //done
+                          String date =
+                              getxTextEditingController.date.value; // done
+                          String category =
+                              getxTextEditingController.txtCategary.text; //done
+                          String amount =
+                              getxTextEditingController.txtAmount.text; // done
+                          String payType =
+                              getxTextEditingController.payType; //done
                           DataBasedHelper.dbHelper.insertData(
                               statusCode: status,
                               notes: note,
@@ -232,17 +441,13 @@ class _HomeScreenState extends State<HomeScreen> {
                               amount: amount);
                           getxTextEditingController.txtStatusCode.clear();
                           getxTextEditingController.txtNote.clear();
-                          // getxTextEditingController.txtTime.clear();
-                          // getxTextEditingController.txtDate.clear();
                           getxTextEditingController.txtAmount.clear();
-                          // getxTextEditingController.txtPayType.clear();
-                          // getxTextEditingController.txtCategary.clear();
+                        } else {
+                          Get.snackbar(
+                              "Khata Book App", "Enter Required Paramaters");
                         }
-                        else
-                          {
-                            Get.snackbar("Khata Book App", "Enter Required Paramaters");
-                          }
                       },
+                      style: ElevatedButton.styleFrom(backgroundColor: Color(0xff434273)),
                       child: Text("Create"),
                     ),
                   ),
@@ -254,18 +459,18 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-  Widget txtField({txtController, txtHintText}) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 5),
-      child: TextField(
-        controller: txtController,
-        decoration: InputDecoration(
-          hintText: txtHintText,
-          border: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black),
-          ),
-        ),
-      ),
-    );
-  }
 }
+
+/*
+DropdownMenu(
+                          menuStyle: MenuStyle(visualDensity: VisualDensity.adaptivePlatformDensity),
+                          onSelected: (value) {
+                            getxTextEditingController.incomeExpense = value!;
+                            // print(value);
+                          },
+                          hintText: "Income/Expense",
+                          dropdownMenuEntries: [
+                            DropdownMenuEntry(value: 0, label: "Income"),
+                            DropdownMenuEntry(value: 1, label: "Expense"),
+                          ]),
+ */

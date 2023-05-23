@@ -43,128 +43,157 @@ class _TransctionScreenState extends State<TransctionScreen> {
             IconButton(
               onPressed: () {
                 showModalBottomSheet(
+                  backgroundColor: Colors.transparent,
                   context: context,
                   builder: (context) {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          height: 3.h,
-                        ),
-                        Container(
-                          height: 10.h,
-                          width: 80.w,
-                          alignment: Alignment.center,
-                          child: Obx(
-                            () => DropdownButton(
-                              items: const [
-                                DropdownMenuItem(
-                                  value: 0,
-                                  child: Text("Income"),
-                                ),
-                                DropdownMenuItem(
-                                  value: 1,
-                                  child: Text("Expense"),
-                                ),
-                                DropdownMenuItem(
-                                  value: 2,
-                                  child: Text("All"),
-                                ),
-                              ],
-                              value: getxTextEditingController
-                                  .dropDownIncomeExpenseFilter.value,
-                              onChanged: (value) {
-                                print(getxTextEditingController.updated);
-                                getxTextEditingController
-                                    .dropDownIncomeExpenseFilter.value = value!;
-                                getxTextEditingController.Filte(
-                                  payType: getxTextEditingController
-                                      .dropDownPayType.value,
-                                  statusCode: getxTextEditingController
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              height: 7.h,
+                              width: 40.w,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4.h),
+                                border: Border.all(color: Colors.white),
+                              ),
+                              child: Obx(
+                                    () => DropdownButton(
+                                      dropdownColor: Colors.black,
+                                      items: const [
+                                    DropdownMenuItem(
+                                      value: 0,
+                                      child: Text("Income"),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 1,
+                                      child: Text("Expense"),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 2,
+                                      child: Text("All"),
+                                    ),
+                                  ],
+                                  value: getxTextEditingController
                                       .dropDownIncomeExpenseFilter.value,
-                                  toDate: getxTextEditingController.toDate,
-                                );
-                                // setState(() {});
-                              },
+                                  onChanged: (value) {
+                                    getxTextEditingController
+                                        .dropDownIncomeExpenseFilter.value = value!;
+                                    getxTextEditingController.Filte(
+                                      payType: getxTextEditingController
+                                          .dropDownPayType.value,
+                                      statusCode: getxTextEditingController
+                                          .dropDownIncomeExpenseFilter.value,
+                                      toDate: getxTextEditingController.toDate,
+                                    );
+                                  },
+                                  style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                                ),
+                              ),
                             ),
-                          ),
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black45)),
-                        ),
-                        SizedBox(
-                          height: 3.h,
-                        ),
-                        Container(
-                          height: 10.h,
-                          width: 80.w,
-                          alignment: Alignment.center,
-                          child: Obx(
-                            () => DropdownButton(
-                              items: const [
-                                DropdownMenuItem(
-                                  value: "online",
-                                  child: Text("online"),
+                            Container(
+                              height: 7.h,
+                              width: 40.w,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4.h),
+                                border: Border.all(color: Colors.white),
+                              ),
+                              child: Obx(
+                                    () => DropdownButton(
+                                      dropdownColor: Colors.black,
+                                      items: const [
+                                    DropdownMenuItem(
+                                      value: "online",
+                                      child: Text("online"),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: "offline",
+                                      child: Text("offline"),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: "all",
+                                      child: Text("All"),
+                                    ),
+                                  ],
+                                  value:
+                                  getxTextEditingController.dropDownPayType.value,
+                                  onChanged: (value) {
+                                    getxTextEditingController.dropDownPayType.value =
+                                    value!;
+                                    getxTextEditingController.Filte(
+                                      payType: getxTextEditingController
+                                          .dropDownPayType.value,
+                                      statusCode: getxTextEditingController
+                                          .dropDownIncomeExpenseFilter.value,
+                                      toDate: getxTextEditingController.toDate,
+                                    );
+                                  },
+                                  style: TextStyle(color: Colors.white, fontSize: 20),
                                 ),
-                                DropdownMenuItem(
-                                  value: "offline",
-                                  child: Text("offline"),
-                                ),
-                                DropdownMenuItem(
-                                  value: "all",
-                                  child: Text("all"),
-                                ),
-                              ],
-                              value: getxTextEditingController
-                                  .dropDownPayType.value,
-                              onChanged: (value) {
-                                print(getxTextEditingController.updated);
-                                getxTextEditingController
-                                    .dropDownPayType.value = value!;
-                                getxTextEditingController.Filte(
-                                  payType: getxTextEditingController
-                                      .dropDownPayType.value,
-                                  statusCode: getxTextEditingController
-                                      .dropDownIncomeExpenseFilter.value,
-                                  toDate: getxTextEditingController.toDate,
-                                );
-                              },
+                              ),
                             ),
-                          ),
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black45)),
+                          ],
                         ),
-                        SizedBox(
-                          height: 3.h,
+                        SizedBox(height: 3.h,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              height: 7.h,
+                              width: 40.w,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4.h),
+                                border: Border.all(color: Colors.white),
+                              ),
+                              child: IconButton(
+                                onPressed: () async {
+                                  DateTime toDate = (await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(2023, 1, 1),
+                                      builder: (context, child) {
+                                        return Theme(data: ThemeData(colorScheme: ColorScheme.light(primary: Color(0xff535272))), child: child!);
+                                      },
+                                      lastDate: DateTime(2050, 1, 1)))!;
+                                  getxTextEditingController.toDate =
+                                      "${toDate.day}-${toDate.month}-${toDate.year}";
+                                  // getxTextEditingController.DateWiseFilter(todate: getxTextEditingController.toDate);
+                                  getxTextEditingController.Filte(
+                                    payType: getxTextEditingController
+                                        .dropDownPayType.value,
+                                    statusCode: getxTextEditingController
+                                        .dropDownIncomeExpenseFilter.value,
+                                    toDate: getxTextEditingController.toDate,
+                                  );
+                                },
+                                icon: const Icon(
+                                  Icons.date_range,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        IconButton(
-                          onPressed: () async {
-                            DateTime toDate = (await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(2023, 1, 1),
-                                lastDate: DateTime(2050, 1, 1)))!;
-                            getxTextEditingController.toDate =
-                                "${toDate.day}-${toDate.month}-${toDate.year}";
-                            // getxTextEditingController.DateWiseFilter(todate: getxTextEditingController.toDate);
-                            getxTextEditingController.Filte(
-                              payType: getxTextEditingController
-                                  .dropDownPayType.value,
-                              statusCode: getxTextEditingController
-                                  .dropDownIncomeExpenseFilter.value,
-                              toDate: getxTextEditingController.toDate,
-                            );
-                          },
-                          icon: const Icon(Icons.date_range),
-                        ),
-                        Spacer(),
-                        ElevatedButton(
-                            onPressed: () {
-                              getxTextEditingController.readData();
-                              Get.back();
-                            },
-                            child: Text("Reset")),
-                        SizedBox(
-                          height: 3.h,
+                        SizedBox(height: 5.h,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ElevatedButton(
+                                onPressed: () {
+                                  getxTextEditingController.readData();
+                                  Get.back();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Color(0xff434273)),
+                                child: Text("Reset",style: TextStyle(fontSize: 18),)),
+                          ],
                         ),
                       ],
                     );
@@ -322,6 +351,7 @@ class _TransctionScreenState extends State<TransctionScreen> {
                       return InkWell(
                         onTap: () {
                           Get.defaultDialog(
+                              title: "Update",
                               content: UpdateAlertDialog(
                                   getxTextEditingController.datas[index]));
                         },
@@ -428,10 +458,13 @@ class _TransctionScreenState extends State<TransctionScreen> {
         ),
         floatingActionButton: Align(
           alignment: Alignment.bottomCenter,
-          child: Container(decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.white)
-          ),
+          child: Container(
+            height: 7.h,
+            width: 14.w,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.transparent,
+                border: Border.all(color: Colors.white)),
             child: FloatingActionButton(
               backgroundColor: Colors.transparent,
               // focusColor: Colors.white,
@@ -439,7 +472,10 @@ class _TransctionScreenState extends State<TransctionScreen> {
                 // getxTextEditingController.GrandTotal();
                 Get.toNamed("/home");
               },
-              child: Icon(Icons.add,color: Colors.white,),
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
@@ -447,65 +483,3 @@ class _TransctionScreenState extends State<TransctionScreen> {
     );
   }
 }
-
-// child: ListTile(
-//   title: Text("${getxTextEditingController.datas[index][DataBasedHelper.c_category]}"),
-//   trailing: Row(
-//     mainAxisSize: MainAxisSize.min,
-//     children: [
-//       IconButton(
-//         onPressed: () {
-//           Get.defaultDialog(
-//               content: UpdateAlertDialog(
-//                   getxTextEditingController
-//                       .datas[index]));
-//         },
-//         icon: const Icon(
-//           Icons.edit,
-//           color: Colors.green,
-//         ),
-//       ),
-//       IconButton(
-//         onPressed: () {
-//           getxTextEditingController.DeleteData(
-//               id: getxTextEditingController.datas[index]
-//                   [DataBasedHelper.c_id]);
-//         },
-//         icon: const Icon(
-//           Icons.delete,
-//           color: Colors.red,
-//         ),
-//       ),
-//     ],
-//   ),
-// ),
-
-/*
-Spacer(),
-                              IconButton(
-                                onPressed: () {
-                                  Get.defaultDialog(
-                                      content: UpdateAlertDialog(
-                                          getxTextEditingController.datas[index]));
-                                },
-                                icon: const Icon(
-                                  Icons.edit,
-                                  color: Colors.green,
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  getxTextEditingController.DeleteData(
-                                      id: getxTextEditingController.datas[index]
-                                          [DataBasedHelper.c_id]);
-                                  getxTextEditingController.GrandTotal();
-                                },
-                                icon: const Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 2.w,
-                              ),
- */

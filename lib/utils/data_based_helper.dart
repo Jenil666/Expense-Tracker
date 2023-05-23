@@ -121,8 +121,9 @@ class DataBasedHelper {
   }
 
   Filter({ required statusCode, required payType,required fromDate,}) async {
-
-
+    print("helper ============================");
+    print(statusCode);
+    print(payType);
     if(statusCode != 2 && payType == "all" && fromDate == "")
       {
         database = await CheckDb();
@@ -167,10 +168,7 @@ class DataBasedHelper {
         List<Map> listreac = await database!.rawQuery(qu);
         return listreac;
       }
-    else if(statusCode == 2 && payType == 'all' && fromDate == "")
-    {
-      read();
-    }
+
     // print("+++++++++++++++++    DB HELPER");
     // print("status code $statusCode");
     // print("payType $payType");

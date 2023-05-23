@@ -7,48 +7,39 @@ import 'package:get/get.dart';
 
 class TextFieldController extends GetxController {
   TextEditingController txtAmount = TextEditingController();
-  TextEditingController txtDate = TextEditingController(text: '23-5-23');
-  TextEditingController txtTime = TextEditingController(text: '12:00');
   TextEditingController txtCategary = TextEditingController();
-  TextEditingController txtPayType = TextEditingController(text: 'online');
   TextEditingController txtStatusCode = TextEditingController(text: '1');
-  TextEditingController txtNote = TextEditingController(text: 'mocktail');
+  TextEditingController txtNote = TextEditingController();
   String payType = "";
-  int incomeExpense = 2;
   RxList<Map> datas = <Map>[].obs;
   RxList<Map> datasForTotal = <Map>[].obs;
   RxList<Map> totalIncome = <Map>[].obs;
   RxList<Map> totalExpense = <Map>[].obs;
   RxList<Map> category = <Map>[].obs;
 
+
   TextEditingController updatedtxtAmount = TextEditingController(text: '200');
   TextEditingController updatedtxtTime = TextEditingController(text: '12:00');
-  TextEditingController updatedtxtDate = TextEditingController(text: '12:00');
-  TextEditingController updatedtxtCategary = TextEditingController(
-      text: 'food');
-  TextEditingController updatedtxtPayType = TextEditingController(
-      text: 'online');
-  TextEditingController updatedtxtStatusCode = TextEditingController(text: '1');
   TextEditingController updatedtxtNote = TextEditingController();
   TextEditingController txtuserEntry = TextEditingController();
   TextEditingController txtUpdateCategory = TextEditingController();
   String toDate = '';
-  String fromDate = '';
   RxString date = ''.obs;
-  String userEntry = "";
   DateTime now = DateTime.now();
-  DateTime initialDate = DateTime.now();
   RxList<DropdownMenuEntry> listOfEntry = <DropdownMenuEntry>[].obs;
   RxInt dropDownIncomeExpenseFilter = 0.obs;
   RxString dropDownPayType = "online".obs;
-  RxString updated = "Jenil".obs;
-  Rx<TimeOfDay> time = TimeOfDay
-      .now()
-      .obs;
+  Rx<TimeOfDay> time = TimeOfDay.now().obs;
   RxString timeSt = "".obs;
   RxString dropDownValueForayType = "".obs;
   RxString dropDownValueFoDate = "".obs;
   RxInt dropDownValueForIncomeExpense = 1.obs;
+
+  int incomeExpense = 0;
+  Rx<Color> incomeTextColor = Colors.black.obs;
+  Rx<Color> incomeContainerColor = Colors.white60.obs;
+  Rx<Color> expenswTextColor = Colors.white.obs;
+  Rx<Color> expenseContainerColor = Colors.transparent.obs;
 
   AddDataInlistOfEntry() {
     print("Done");
@@ -74,11 +65,14 @@ class TextFieldController extends GetxController {
     print("Inc:- $statusCode");
     print("Onl:- $payType");
     print("Dat:- $toDate");
-    datas.value = await DataBasedHelper.dbHelper.Filter(
-        statusCode: statusCode, payType: payType, fromDate: toDate);
-    if (toDate == "") {
-      print("Done");
+     if(statusCode == 2 && payType == 'all' && toDate == "")
+    {
+    readData();
     }
+     else {
+       datas.value = await DataBasedHelper.dbHelper.Filter(
+           statusCode: statusCode, payType: payType, fromDate: toDate);
+     }
   }
 
   // DateWiseFilter({required todate, fromdate}) async {

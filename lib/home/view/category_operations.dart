@@ -12,8 +12,10 @@ class CategoryScreen extends StatelessWidget {
     TextFieldController getx = Get.put(TextFieldController());
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.black,
         appBar: AppBar(
-          title: Text("Category Screen"),
+          backgroundColor: Color(0xff434273),
+          title: Text("Edit Category"),
         ),
         body: Obx(
           () =>  ListView.builder(itemCount: getx.category.length,itemBuilder: (context, index) {
@@ -24,7 +26,7 @@ class CategoryScreen extends StatelessWidget {
               width: 100,
               child: Row(
                 children: [
-                  Text("${getx.category[index][DataBasedHelper.c_catCategory]}"),
+                  Text("${getx.category[index][DataBasedHelper.c_catCategory]}",style: TextStyle(fontSize: 18.sp,color: Colors.white),),
                   Spacer(),
                   IconButton(onPressed: () {
                     Get.defaultDialog(
@@ -77,7 +79,7 @@ class CategoryScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 // color: Colors.red,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.black45)
+                border: Border.all(color: Colors.white)
               ),
             );
           },),
