@@ -25,7 +25,6 @@ samples, guidance on mobile development, and a full API reference.
 
 
 
-https://github.com/Jenil666/khata_book/assets/116253963/ae0ddae9-8100-41f9-88e0-d12916f94059
 
 
 
