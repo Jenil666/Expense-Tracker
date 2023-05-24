@@ -12,7 +12,7 @@ class TextFieldController extends GetxController {
   TextEditingController txtNote = TextEditingController();
   String payType = "";
   RxList<Map> datas = <Map>[].obs;
-  RxList<Map> datasForTotal = <Map>[].obs;
+  RxList<Map> filterTotal = <Map>[].obs;
   RxList<Map> totalIncome = <Map>[].obs;
   RxList<Map> totalExpense = <Map>[].obs;
   RxList<Map> category = <Map>[].obs;
@@ -40,6 +40,23 @@ class TextFieldController extends GetxController {
   Rx<Color> incomeContainerColor = Colors.white60.obs;
   Rx<Color> expenswTextColor = Colors.white.obs;
   Rx<Color> expenseContainerColor = Colors.transparent.obs;
+  RxString month = "".obs;
+  List months = [
+    "January",
+    "Febuary",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "Ocyomber",
+    "Nonember",
+    "December",
+  ];
+  RxInt indexOfTappedContainer = 0.obs;
+  RxBool isFilterIsApplied = false.obs;
 
   AddDataInlistOfEntry() {
     print("Done");
@@ -60,38 +77,65 @@ class TextFieldController extends GetxController {
     );
   }
 
-  Filte({required statusCode, required payType, required toDate}) async {
+  Filte({required statusCode, required payType, required toDate,required month}) async {
     print("+++++++++++++++++    Controller");
     print("Inc:- $statusCode");
     print("Onl:- $payType");
     print("Dat:- $toDate");
-     if(statusCode == 2 && payType == 'all' && toDate == "")
+    print("month = $month");
+     if(statusCode == 2 && payType == 'all' && toDate == "" && month == 13)
     {
     readData();
     }
      else {
-       datas.value = await DataBasedHelper.dbHelper.Filter(
-           statusCode: statusCode, payType: payType, fromDate: toDate);
+       isFilterIsApplied.value = true;
+       datas.value = await DataBasedHelper.dbHelper.Filter(statusCode: statusCode, payType: payType, fromDate: toDate,month: month);
+       filterTotal.value = await DataBasedHelper.dbHelper.Filter(statusCode: statusCode, payType: payType, fromDate: toDate,month: month);
+       FilterGrandTotal();
      }
   }
 
-  // DateWiseFilter({required todate, fromdate}) async {
-  //   datas.value = await DataBasedHelper.dbHelper.DateWise(todate,fromdate);
-  // }
+  RxDouble filterIncomeTotal = 0.0.obs;
+  RxDouble filterExpenseTotal = 0.0.obs;
+  RxDouble filterGrandTotal = 0.0.obs;
+  FilterGrandTotal()
+  {
+    filterIncomeTotal.value = 0.0;
+    filterExpenseTotal.value = 0.0;
+    filterGrandTotal.value = 0.0;
+    Future.delayed(Duration(seconds: 2),() {
+      for(int i=0; i<filterTotal.length;i++)
+      {
+        if(filterTotal[i][DataBasedHelper.c_statusCode] == 0)
+          {
+            String value = filterTotal[i][DataBasedHelper.c_amount];
+            int amount = int.parse(value);
+            filterIncomeTotal.value = filterIncomeTotal.value + amount;
+          }
+        else if(filterTotal[i][DataBasedHelper.c_statusCode] == 1)
+        {
+          String value = filterTotal[i][DataBasedHelper.c_amount];
+          int amount = int.parse(value);
+          filterExpenseTotal.value = filterExpenseTotal.value + amount;
+        }
+      }
+
+      if(filterIncomeTotal == 0.0)
+        {
+          filterGrandTotal.value =   filterExpenseTotal.value - filterIncomeTotal.value;
+        }
+      else {
+        filterGrandTotal.value =
+            filterIncomeTotal.value - filterExpenseTotal.value;
+      }
+      print("Total   $filterGrandTotal");
+    },);
+  }
+
 
   double sumForFilters = 0;
 
-  allEntryTotal() {
-    readDataForTotal();
-    sumForFilters = 0;
-    for (int i = 0; i < datasForTotal.length; i++) {
-      String value = datasForTotal[i][DataBasedHelper.c_amount];
-      int amount = int.parse(value);
-      sumForFilters = sumForFilters + amount;
-    }
-    print("end");
-    print(sumForFilters);
-  }
+
 
   RxDouble sumOfIncome = 0.0.obs;
 
@@ -151,13 +195,12 @@ class TextFieldController extends GetxController {
     totalExpense.value = await DataBasedHelper.dbHelper.FilterForExpense();
   }
 
-  Future<void> readDataForTotal() async {
-    datasForTotal.value = await DataBasedHelper.dbHelper.read();
-  }
+
 
   // ToDo All Table
 
   Future<void> readData() async {
+    isFilterIsApplied.value = false;
     datas.value = await DataBasedHelper.dbHelper.read();
   }
 
@@ -167,7 +210,7 @@ class TextFieldController extends GetxController {
   }
 
   Update(
-      {required statusCode, required notes, required time, required date, required category, required amount, required id, required payTypes,}) {
+      {required month,required statusCode, required notes, required time, required date, required category, required amount, required id, required payTypes,}) {
     DataBasedHelper.dbHelper.Update(
       statusCode: statusCode,
       notes: notes,
@@ -177,6 +220,7 @@ class TextFieldController extends GetxController {
       amount: amount,
       id: id,
       payType: payTypes,
+      month: month,
     );
     readData();
   }

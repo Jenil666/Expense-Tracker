@@ -43,13 +43,44 @@ class _TransctionScreenState extends State<TransctionScreen> {
             IconButton(
               onPressed: () {
                 showModalBottomSheet(
-                  backgroundColor: Colors.transparent,
+                  backgroundColor: Colors.black,
                   context: context,
                   builder: (context) {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Container(
+                          height: 8.h,
+                          child: ListView.builder(itemCount: getxTextEditingController.months.length,scrollDirection: Axis.horizontal,itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () {
+                                getxTextEditingController.indexOfTappedContainer.value = index;
+                                getxTextEditingController.Filte(
+                                  payType: getxTextEditingController
+                                      .dropDownPayType.value,
+                                  statusCode: getxTextEditingController
+                                      .dropDownIncomeExpenseFilter.value,
+                                  toDate: getxTextEditingController.toDate,
+                                  month: getxTextEditingController.indexOfTappedContainer.value+1
+                                );
+                              },
+                              child: Obx(
+                                () =>  Container(
+                                  margin: EdgeInsets.all(10),
+                                  width: 30.w,
+                                  alignment: Alignment.center,
+                                  child: Text("${getxTextEditingController.months[index]}",style: TextStyle(color: Colors.white),),
+                                  decoration: BoxDecoration(
+                                    color:getxTextEditingController.indexOfTappedContainer.value == index?Colors.white24:Colors.black,
+                                    border: Border.all(color: Colors.white),
+                                    borderRadius: BorderRadius.circular(2.h),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },),
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -84,11 +115,10 @@ class _TransctionScreenState extends State<TransctionScreen> {
                                     getxTextEditingController
                                         .dropDownIncomeExpenseFilter.value = value!;
                                     getxTextEditingController.Filte(
-                                      payType: getxTextEditingController
-                                          .dropDownPayType.value,
-                                      statusCode: getxTextEditingController
-                                          .dropDownIncomeExpenseFilter.value,
+                                      payType: getxTextEditingController.dropDownPayType.value,
+                                      statusCode: getxTextEditingController.dropDownIncomeExpenseFilter.value,
                                       toDate: getxTextEditingController.toDate,
+                                      month: getxTextEditingController.indexOfTappedContainer.value+1
                                     );
                                   },
                                   style:
@@ -132,6 +162,8 @@ class _TransctionScreenState extends State<TransctionScreen> {
                                       statusCode: getxTextEditingController
                                           .dropDownIncomeExpenseFilter.value,
                                       toDate: getxTextEditingController.toDate,
+                                        month: getxTextEditingController.indexOfTappedContainer.value+1
+
                                     );
                                   },
                                   style: TextStyle(color: Colors.white, fontSize: 20),
@@ -171,6 +203,7 @@ class _TransctionScreenState extends State<TransctionScreen> {
                                     statusCode: getxTextEditingController
                                         .dropDownIncomeExpenseFilter.value,
                                     toDate: getxTextEditingController.toDate,
+                                      month: getxTextEditingController.indexOfTappedContainer.value+1
                                   );
                                 },
                                 icon: const Icon(
@@ -188,6 +221,7 @@ class _TransctionScreenState extends State<TransctionScreen> {
                             ElevatedButton(
                                 onPressed: () {
                                   getxTextEditingController.readData();
+                                  getxTextEditingController.indexOfTappedContainer.value = 13;
                                   Get.back();
                                 },
                                 style: ElevatedButton.styleFrom(
@@ -246,11 +280,11 @@ class _TransctionScreenState extends State<TransctionScreen> {
                                 style: TextStyle(
                                     color: Colors.white54, fontSize: 12),
                               ),
-                              Obx(() => Text(
+                              Obx(() => getxTextEditingController.isFilterIsApplied == false?Text(
                                     "${getxTextEditingController.sumOfExpense}",
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 18),
-                                  )),
+                                  ):Text("${getxTextEditingController.filterExpenseTotal}",style: TextStyle(color: Colors.white,fontSize: 18),)),
                             ],
                           ),
                         ],
@@ -295,11 +329,11 @@ class _TransctionScreenState extends State<TransctionScreen> {
                                 style: TextStyle(
                                     color: Colors.white54, fontSize: 12),
                               ),
-                              Obx(() => Text(
-                                    "${getxTextEditingController.sumOfIncome}",
+                              Obx(() => getxTextEditingController.isFilterIsApplied == false?Text(
+                                "${getxTextEditingController.sumOfIncome}",
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 18),
-                                  )),
+                                  ):Text("${getxTextEditingController.filterIncomeTotal}",style: TextStyle(color: Colors.white,fontSize: 18),)),
                             ],
                           ),
                         ],
@@ -316,10 +350,10 @@ class _TransctionScreenState extends State<TransctionScreen> {
               height: 4.h,
               width: 32.w,
               alignment: Alignment.center,
-              child: Obx(() => Text(
+              child: Obx(() => getxTextEditingController.isFilterIsApplied == false?Text(
                     "Balance: ${getxTextEditingController.grandTotal.value}",
                     style: TextStyle(color: Colors.white),
-                  )),
+                  ):Text("${getxTextEditingController.filterGrandTotal}",style: TextStyle(color: Colors.white),)),
               decoration: BoxDecoration(
                   color: Colors.white54,
                   borderRadius: BorderRadius.circular(20)),

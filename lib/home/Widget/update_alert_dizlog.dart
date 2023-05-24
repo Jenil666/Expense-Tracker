@@ -15,6 +15,8 @@ class UpdateAlertDialog extends StatelessWidget {
     getxTextEditingController.dropDownValueForayType.value = data![DataBasedHelper.c_payType];
     getxTextEditingController.dropDownValueForIncomeExpense.value = data![DataBasedHelper.c_statusCode];
     getxTextEditingController.dropDownValueFoDate.value = data![DataBasedHelper.c_date];
+    getxTextEditingController.month.value = data![DataBasedHelper.c_month];
+    // getxTextEditingController.dropDownValueFoDate
     return  Obx(
       () =>
           Container(
@@ -46,11 +48,13 @@ class UpdateAlertDialog extends StatelessWidget {
                           IconButton(onPressed: () async {
                             DateTime? date = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(2001,1,1), lastDate: DateTime(2050,1,1));
                             getxTextEditingController.date.value = "${date?.day}-${date?.month}-${date?.year}";
+                            getxTextEditingController.month.value = "${date?.month}";
                             getxTextEditingController.dropDownValueFoDate.value = "${date?.day}-${date?.month}-${date?.year}";
                             if(getxTextEditingController.date.value == "null-null-null")
                               {
                                 getxTextEditingController.date.value = data![DataBasedHelper.c_date];
                                 getxTextEditingController.dropDownValueFoDate.value = data![DataBasedHelper.c_date];
+                                getxTextEditingController.month.value = data![DataBasedHelper.c_month];
                               }
                           }, icon: Icon(Icons.calendar_month_outlined),),
                         ],
@@ -146,8 +150,7 @@ class UpdateAlertDialog extends StatelessWidget {
                         ElevatedButton(
                           onPressed: () {
                             if(getxTextEditingController.txtCategary.text != "") {
-                              int statusCode = getxTextEditingController
-                                  .dropDownIncomeExpenseFilter.value;
+                              int statusCode = getxTextEditingController.dropDownIncomeExpenseFilter.value;
                               String payType = getxTextEditingController
                                   .dropDownPayType.value;
                               String notes = getxTextEditingController.updatedtxtNote
@@ -166,7 +169,9 @@ class UpdateAlertDialog extends StatelessWidget {
                                   category: category,
                                   amount: amount,
                                   id: "${data![DataBasedHelper.c_id]}",
-                                  payTypes: payType);
+                                  payTypes: payType,
+                                month: getxTextEditingController.month.value
+                              );
                               getxTextEditingController.GrandTotal();
                               Get.back();
                             }
@@ -179,7 +184,31 @@ class UpdateAlertDialog extends StatelessWidget {
                           child: Text("Update"),
                         ),
                       ],
-                      /*
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+      ),
+    );
+  }
+  Widget txtField({txtController, txtHintText}) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 5),
+      child: TextField(
+        controller: txtController,
+        decoration: InputDecoration(
+          hintText: txtHintText,
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
+        ),
+      ),
+    );
+  }
+}
+/*
 
                       IconButton(
                                 onPressed: () {
@@ -205,27 +234,3 @@ class UpdateAlertDialog extends StatelessWidget {
                                 ),
                               ),
                        */
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-      ),
-    );
-  }
-  Widget txtField({txtController, txtHintText}) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 5),
-      child: TextField(
-        controller: txtController,
-        decoration: InputDecoration(
-          hintText: txtHintText,
-          border: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black),
-          ),
-        ),
-      ),
-    );
-  }
-}

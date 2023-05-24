@@ -23,8 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
         "${getxTextEditingController.now.day}-${getxTextEditingController.now.month}-${getxTextEditingController.now.year}";
     getxTextEditingController.readCatData();
     getxTextEditingController.AddDataInlistOfEntry();
-    getxTextEditingController.timeSt.value =
-        "${getxTextEditingController.time.value.hour}:${getxTextEditingController.time.value.minute}";
+    getxTextEditingController.timeSt.value = "${getxTextEditingController.time.value.hour}:${getxTextEditingController.time.value.minute}";
+    getxTextEditingController.month.value = "${getxTextEditingController.now.month}";
   }
 
   @override
@@ -225,13 +225,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: child!);
                               },
                             );
-                            getxTextEditingController.date.value =
-                                "${date?.day}-${date?.month}-${date?.year}";
+                            getxTextEditingController.date.value = "${date?.day}-${date?.month}-${date?.year}";
+                            getxTextEditingController.month.value = "${date?.month}";
                             print(getxTextEditingController.date);
                             if (getxTextEditingController.date.value ==
                                 "null-null-null") {
-                              getxTextEditingController.date.value =
-                                  "${getxTextEditingController.now.day}-${getxTextEditingController.now.month}-${getxTextEditingController.now.year}";
+                              getxTextEditingController.date.value = "${getxTextEditingController.now.day}-${getxTextEditingController.now.month}-${getxTextEditingController.now.year}";
+                              getxTextEditingController.month.value = "${getxTextEditingController.now.month}";
                             }
                             // Text("${getxTextEditingController.date}");
                           },
@@ -434,7 +434,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               date: date,
                               category: category,
                               payType: payType,
-                              amount: amount);
+                              amount: amount,
+                            month: getxTextEditingController.month.value
+                          );
                           getxTextEditingController.txtStatusCode.clear();
                           getxTextEditingController.txtNote.clear();
                           getxTextEditingController.txtAmount.clear();
