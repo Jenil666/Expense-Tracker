@@ -18,35 +18,12 @@ samples, guidance on mobile development, and a full API reference.
 
 
 
-https://github.com/Jenil666/khata_book/assets/116253963/92e7c869-e965-422a-b56e-cfa372b1cc9b
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+https://github.com/Jenil666/khata_book/assets/116253963/88eb9614-ad1c-427e-9952-58d91dbb89f9
 <p>
 <img src = "https://github.com/Jenil666/khata_book/assets/116253963/acdae872-8c0a-43cb-9784-0c3f751f87ec" height=20% width = 20%>
 <img src = "https://github.com/Jenil666/khata_book/assets/116253963/eaea6f1e-a7a6-4556-b8b2-226b1313bc5f" height=20% width = 20%>
