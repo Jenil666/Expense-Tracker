@@ -134,7 +134,7 @@ class DataBasedHelper {
     print('month  $month');
 
     // ToDo Single paramaters
-    if(statusCode != 2 && payType == "all" && fromDate == "" && month == 13)
+    if(statusCode != 2 && month == 14 && payType == "all" && fromDate == "")
       {
         database = await CheckDb();
           String qu = "SELECT * FROM $tableName WHERE $c_statusCode = '$statusCode'";
@@ -143,7 +143,7 @@ class DataBasedHelper {
           print(listreac);
           return listreac;
       }
-    else if(statusCode == 2 && payType == "all" && fromDate == "" && month != 13)
+    else if(month != 14&& statusCode == 2 && payType == "all" && fromDate == "")
       {
         database = await CheckDb();
         String qu = "SELECT * FROM $tableName WHERE $c_month = '$month'";
@@ -152,120 +152,137 @@ class DataBasedHelper {
         print(listreac);
         return listreac;
       }
-    else if(statusCode == 2 && payType != "all" && fromDate == "" && month == 13)
+    else if(payType != "all" && month == 14 && statusCode == 2 && fromDate == "")
       {
         database = await CheckDb();
+        print("======================   Method");
+        print("Pay  Type = $payType");
           String qu = "SELECT * FROM $tableName WHERE $c_payType = '$payType'";
           List<Map> listreac = await database!.rawQuery(qu);
           return listreac;
       }
-    else if(statusCode == 2 && payType == "all" && fromDate != "" && month == 13)
+    else if(fromDate != "" && payType == "all" && month == 14 && statusCode == 2 )
       {
+        print("c_date = $c_date");
         String qu = "SELECT * FROM $tableName WHERE $c_date = '$fromDate'";
         List<Map> listreac = await database!.rawQuery(qu);
         return listreac;
       }
 
+
+
     // ToDo 2 paramaters
-    else if(statusCode != 2 && payType == "all" && fromDate != "" && month == 13)
+    else if(statusCode != 2 && month != 14 && fromDate == "" && payType == "all")
       {
-        String qu = "SELECT * FROM $tableName WHERE $c_date = '$fromDate' AND $c_statusCode = $statusCode";
+        String qu = "SELECT * FROM $tableName WHERE $c_month = '$month' AND $c_statusCode = $statusCode";
         List<Map> listreac = await database!.rawQuery(qu);
         return listreac;
       }
-    else if(statusCode != 2 && payType == "all" && fromDate == "" && month != 13)
+    else if(statusCode != 2 && payType != "all" && fromDate == ""  && month == 14 )
       {
-        String qu = "SELECT * FROM $tableName WHERE $c_statusCode = $statusCode AND $c_month = '$month'";
+        String qu = "SELECT * FROM $tableName WHERE $c_statusCode = $statusCode AND $c_payType = '$payType'";
         List<Map> listreac = await database!.rawQuery(qu);
         // print("Map");
         // print(listreac);
         return listreac;
       }
-    else if(statusCode == 2 && payType != "all" && fromDate == "" && month != 13)
+    else if(statusCode != 2 && fromDate != "" && payType == "all" && month == 14 )
     {
-      String qu = "SELECT * FROM $tableName WHERE $c_payType = '$payType' AND $c_month = '$month'";
+      String qu = "SELECT * FROM $tableName WHERE $c_statusCode = '$statusCode' AND $c_date = '$fromDate'";
       List<Map> listreac = await database!.rawQuery(qu);
       print("Map 4 ");
       print(listreac);
       return listreac;
     }
-    else if(statusCode == 2 && payType == "all" && fromDate != "" && month != 13)
+    else if( payType != "all"  && month != 14 && fromDate == "" && statusCode == 2)
     {
-      String qu = "SELECT * FROM $tableName WHERE $c_date = '$fromDate' AND $c_month = '$month'";
+      String qu = "SELECT * FROM $tableName WHERE $c_payType = '$payType' AND $c_month = '$month'";
       List<Map> listreac = await database!.rawQuery(qu);
       return listreac;
     }
-    else if(statusCode == 2 && payType != "all" && fromDate != "" && month == 13)
+    else if(payType != "all" && fromDate != "" && month == 14 && statusCode == 2 )
     {
       String qu = "SELECT * FROM $tableName WHERE $c_date = '$fromDate' AND $c_payType = '$payType'";
       List<Map> listreac = await database!.rawQuery(qu);
       return listreac;
     }
-    else if (statusCode != 2 && payType != 'all' && fromDate == "" && month == 13)
+    else if (statusCode != 2 && payType != 'all'&& fromDate == ""  && month == 14  )
     {
-        database = await CheckDb();
+        // database = await CheckDb();
         String qu = "SELECT * FROM $tableName WHERE $c_payType = '$payType' AND $c_statusCode = '$statusCode'";
 
         List<Map> listreac = await database!.rawQuery(qu);
         return listreac;
       }
+    else if(payType != 'all' && fromDate != "" && month == 14 && statusCode == 2 )
+      {
+        String qu = "SELECT * FROM $tableName WHERE $c_date = '$fromDate' AND $c_payType = '$payType'";
+        List<Map> listreac = await database!.rawQuery(qu);
+        return listreac;
+      }
+    else if(statusCode != 2 && fromDate != "" && payType == "all" && month == 14 )
+      {
+        String qu = "SELECT * FROM $tableName WHERE $c_date = '$fromDate' AND $c_statusCode = '$statusCode'";
+        List<Map> listreac = await database!.rawQuery(qu);
+        return listreac;
+      }
+    else if(payType != 'all' && month != 14 && fromDate == ""  && statusCode == 2 )
+    {
+      String qu = "SELECT * FROM $tableName WHERE $c_month = '$month' AND $c_payType = '$payType'";
+      List<Map> listreac = await database!.rawQuery(qu);
+      return listreac;
+    }
+    else if(statusCode != 2 && month != 14 && fromDate == "" && payType == "all" )
+    {
+      String qu = "SELECT * FROM $tableName WHERE $c_month = '$month' AND $c_statusCode = '$statusCode'";
+      List<Map> listreac = await database!.rawQuery(qu);
+      return listreac;
+    }
+    else if(fromDate != "" && month != 14 && statusCode == 2 && payType == "all" )
+    {
+      String qu = "SELECT * FROM $tableName WHERE $c_month = '$month' AND $c_date = '$fromDate'";
+      List<Map> listreac = await database!.rawQuery(qu);
+      return listreac;
+    }
 
     // ToDo 3 paramaters
-    else if(statusCode != 2 && payType != 'all' && fromDate != "" && month == 13)
+    else if(statusCode != 2 && payType != 'all' && fromDate != "" && month == 14)
     {
       String qu = "SELECT * FROM $tableName WHERE $c_date = '$fromDate' AND $c_payType = '$payType' AND $c_statusCode = '$statusCode'";
       List<Map> listreac = await database!.rawQuery(qu);
       return listreac;
     }
-    else if(statusCode != 2 && payType != 'all' && fromDate == "" && month != 13)
-    {
-      String qu = "SELECT * FROM $tableName WHERE $c_payType = '$payType' AND $c_month = '$month' AND $c_statusCode = '$statusCode'";
-      List<Map> listreac = await database!.rawQuery(qu);
-      // print("map 3");
-      // print(listreac);
-      return listreac;
-    }
-    else if(statusCode != 2 && payType == 'all' && fromDate != "" && month != 13)
+
+    else if(statusCode != 2 && payType != 'all'  && month != 14 && fromDate == "")
     {
       String qu = "SELECT * FROM $tableName WHERE $c_date = '$fromDate' AND $c_month = '$month' AND $c_statusCode = '$statusCode'";
       List<Map> listreac = await database!.rawQuery(qu);
       return listreac;
     }
-    else if(statusCode == 2 && payType != 'all' && fromDate != "" && month == 13)
+    else if(statusCode != 2  && fromDate != "" && month != 14 && payType == 'all')
     {
-      String qu = "SELECT * FROM $tableName WHERE $c_date = '$fromDate' AND $c_payType = '$payType' AND $c_month = '$month'";
+      String qu = "SELECT * FROM $tableName WHERE $c_date = '$fromDate' AND $c_month = '$month' AND $c_statusCode = '$statusCode'";
       List<Map> listreac = await database!.rawQuery(qu);
       return listreac;
     }
 
+    else if( payType != 'all' && fromDate != "" && month != 14 && statusCode == 2)
+    {
+      String qu = "SELECT * FROM $tableName WHERE $c_date = '$fromDate' AND $c_month = '$month' AND $c_payType = '$payType'";
+      List<Map> listreac = await database!.rawQuery(qu);
+      return listreac;
+    }
+
+
     // ToDo 4 paramaters
-    else if(statusCode != 2 && payType != 'all' && fromDate != "" && month != 13)
+    else if(statusCode != 2 && payType != 'all' && fromDate != "" && month != 14)
     {
       String qu = "SELECT * FROM $tableName WHERE $c_date = '$fromDate' AND $c_payType = '$payType' AND $c_statusCode = '$statusCode' AND $c_month = '$month'";
       List<Map> listreac = await database!.rawQuery(qu);
+      print("====================== 4P");
+      print(listreac);
       return listreac;
     }
-
-
-
-    // print("+++++++++++++++++    DB HELPER");
-    // print("status code $statusCode");
-    // print("payType $payType");
-    // if (statusCode != 2 && payType == 'all') {
-    //   // print("Status Code Method");
-    //
-    // }
-    // else if (statusCode == 2 && payType != 'all') {
-    //   // print("Pay type Method");
-    //
-    // }
-    //
-    // else if(fromDate != null && fromDate != null)
-    //   {
-    //     String qu = "SELECT * FROM $tableName where $c_date >= '18-5-2023' and $c_date <= '19-5-2023'";
-    //     List<Map> listreac = await database!.rawQuery(qu);
-    //     return listreac;
-    //   }
   }
 
 

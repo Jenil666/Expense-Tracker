@@ -16,6 +16,7 @@ class UpdateAlertDialog extends StatelessWidget {
     getxTextEditingController.dropDownValueForIncomeExpense.value = data![DataBasedHelper.c_statusCode];
     getxTextEditingController.dropDownValueFoDate.value = data![DataBasedHelper.c_date];
     getxTextEditingController.month.value = data![DataBasedHelper.c_month];
+    getxTextEditingController.updatedtxtAmount = TextEditingController(text: data![DataBasedHelper.c_amount]);
     // getxTextEditingController.dropDownValueFoDate
     return  Obx(
       () =>
@@ -47,12 +48,12 @@ class UpdateAlertDialog extends StatelessWidget {
                           Spacer(),
                           IconButton(onPressed: () async {
                             DateTime? date = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(2001,1,1), lastDate: DateTime(2050,1,1));
-                            getxTextEditingController.date.value = "${date?.day}-${date?.month}-${date?.year}";
+                            getxTextEditingController.dropDownValueFoDate.value = "${date?.day}-${date?.month}-${date?.year}";
                             getxTextEditingController.month.value = "${date?.month}";
                             getxTextEditingController.dropDownValueFoDate.value = "${date?.day}-${date?.month}-${date?.year}";
-                            if(getxTextEditingController.date.value == "null-null-null")
+                            if(getxTextEditingController.dropDownValueFoDate.value == "null-null-null")
                               {
-                                getxTextEditingController.date.value = data![DataBasedHelper.c_date];
+                                getxTextEditingController.dropDownValueFoDate.value = data![DataBasedHelper.c_date];
                                 getxTextEditingController.dropDownValueFoDate.value = data![DataBasedHelper.c_date];
                                 getxTextEditingController.month.value = data![DataBasedHelper.c_month];
                               }
@@ -84,8 +85,9 @@ class UpdateAlertDialog extends StatelessWidget {
                             value: getxTextEditingController.dropDownValueForayType.value,
                             onChanged: (value) {
                               getxTextEditingController.dropDownValueForayType.value = value!;
-                              getxTextEditingController.dropDownPayType.value = value as String;
-                            },
+                              print(getxTextEditingController.dropDownValueForayType.value);
+                              getxTextEditingController.dropDownPayType.value = value as String;}
+
                           ),
                        decoration: BoxDecoration(
                          border: Border.all(color: Colors.black45),
@@ -102,7 +104,7 @@ class UpdateAlertDialog extends StatelessWidget {
                         () =>
                             DropdownButton(
                               style: TextStyle(fontSize: 20,color: Colors.black),
-                              items: const [
+                              items:  [
                             DropdownMenuItem(
                               value: 0,
                               child: Text("Income"),
@@ -150,14 +152,13 @@ class UpdateAlertDialog extends StatelessWidget {
                         ElevatedButton(
                           onPressed: () {
                             if(getxTextEditingController.txtCategary.text != "") {
-                              int statusCode = getxTextEditingController.dropDownIncomeExpenseFilter.value;
-                              String payType = getxTextEditingController
-                                  .dropDownPayType.value;
+                              int statusCode = getxTextEditingController.dropDownValueForIncomeExpense.value;
+                              String payType = getxTextEditingController.dropDownValueForayType.value;
                               String notes = getxTextEditingController.updatedtxtNote
                                   .text;
                               String time = getxTextEditingController.updatedtxtTime
                                   .text;
-                              String date = getxTextEditingController.date.value;
+                              String date = getxTextEditingController.dropDownValueFoDate.value;
                               String category = getxTextEditingController.txtCategary
                                   .text;
                               String amount = getxTextEditingController

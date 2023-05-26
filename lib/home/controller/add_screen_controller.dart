@@ -18,7 +18,7 @@ class TextFieldController extends GetxController {
   RxList<Map> category = <Map>[].obs;
 
 
-  TextEditingController updatedtxtAmount = TextEditingController(text: '200');
+  TextEditingController updatedtxtAmount = TextEditingController();
   TextEditingController updatedtxtTime = TextEditingController(text: '12:00');
   TextEditingController updatedtxtNote = TextEditingController();
   TextEditingController txtuserEntry = TextEditingController();
@@ -55,7 +55,7 @@ class TextFieldController extends GetxController {
     "Nonember",
     "December",
   ];
-  RxInt indexOfTappedContainer = 0.obs;
+  RxInt indexOfTappedContainer = 13.obs;
   RxBool isFilterIsApplied = false.obs;
 
   AddDataInlistOfEntry() {
@@ -83,7 +83,7 @@ class TextFieldController extends GetxController {
     print("Onl:- $payType");
     print("Dat:- $toDate");
     print("month = $month");
-     if(statusCode == 2 && payType == 'all' && toDate == "" && month == 13)
+     if(statusCode == 2 && payType == 'all' && toDate == "" && month == 14)
     {
     readData();
     }

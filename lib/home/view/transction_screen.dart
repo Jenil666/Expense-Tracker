@@ -31,6 +31,8 @@ class _TransctionScreenState extends State<TransctionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    getxTextEditingController.dropDownIncomeExpenseFilter.value = 2;
+    getxTextEditingController.dropDownPayType.value = "all";
     getxTextEditingController.readData();
     return SafeArea(
       child: Scaffold(
@@ -55,6 +57,7 @@ class _TransctionScreenState extends State<TransctionScreen> {
                           child: ListView.builder(itemCount: getxTextEditingController.months.length,scrollDirection: Axis.horizontal,itemBuilder: (context, index) {
                             return InkWell(
                               onTap: () {
+                                print("index $index");
                                 getxTextEditingController.indexOfTappedContainer.value = index;
                                 getxTextEditingController.Filte(
                                   payType: getxTextEditingController
@@ -109,8 +112,7 @@ class _TransctionScreenState extends State<TransctionScreen> {
                                       child: Text("All"),
                                     ),
                                   ],
-                                  value: getxTextEditingController
-                                      .dropDownIncomeExpenseFilter.value,
+                                  value: getxTextEditingController.dropDownIncomeExpenseFilter.value,
                                   onChanged: (value) {
                                     getxTextEditingController
                                         .dropDownIncomeExpenseFilter.value = value!;
@@ -137,7 +139,7 @@ class _TransctionScreenState extends State<TransctionScreen> {
                               child: Obx(
                                     () => DropdownButton(
                                       dropdownColor: Colors.black,
-                                      items: const [
+                                      items:  [
                                     DropdownMenuItem(
                                       value: "online",
                                       child: Text("online"),
@@ -154,8 +156,7 @@ class _TransctionScreenState extends State<TransctionScreen> {
                                   value:
                                   getxTextEditingController.dropDownPayType.value,
                                   onChanged: (value) {
-                                    getxTextEditingController.dropDownPayType.value =
-                                    value!;
+                                    getxTextEditingController.dropDownPayType.value = value!;
                                     getxTextEditingController.Filte(
                                       payType: getxTextEditingController
                                           .dropDownPayType.value,
@@ -222,6 +223,9 @@ class _TransctionScreenState extends State<TransctionScreen> {
                                 onPressed: () {
                                   getxTextEditingController.readData();
                                   getxTextEditingController.indexOfTappedContainer.value = 13;
+                                  getxTextEditingController.dropDownIncomeExpenseFilter.value = 2;
+                                  getxTextEditingController.dropDownPayType.value = "all";
+                                  getxTextEditingController.toDate = "";
                                   Get.back();
                                 },
                                 style: ElevatedButton.styleFrom(
@@ -357,7 +361,7 @@ class _TransctionScreenState extends State<TransctionScreen> {
               decoration: BoxDecoration(
                   color: Colors.white54,
                   borderRadius: BorderRadius.circular(20)),
-            ),
+            )
             SizedBox(
               height: 3.h,
             ),
@@ -388,6 +392,11 @@ class _TransctionScreenState extends State<TransctionScreen> {
                               title: "Update",
                               content: UpdateAlertDialog(
                                   getxTextEditingController.datas[index]));
+                        },
+                        onDoubleTap: () {
+                          getxTextEditingController.DeleteData(
+                              id: getxTextEditingController.datas[index][DataBasedHelper.c_id]);
+                          getxTextEditingController.GrandTotal();
                         },
                         child: Container(
                           padding: EdgeInsets.all(15),
