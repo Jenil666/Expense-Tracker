@@ -361,7 +361,7 @@ class _TransctionScreenState extends State<TransctionScreen> {
               decoration: BoxDecoration(
                   color: Colors.white54,
                   borderRadius: BorderRadius.circular(20)),
-            )
+            ),
             SizedBox(
               height: 3.h,
             ),
